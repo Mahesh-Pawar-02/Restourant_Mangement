@@ -1,0 +1,166 @@
+<nav class="navbar navbar-light bg-primary">
+  <div class="container-fluid">
+    <h2>Restaurent Record App</h2>
+    <div class="d-flex">
+
+      <button (click)="contact()" class="btn btn-secondary" type="button" data-bs-toggle="modal"
+        style="margin-right: 5px;" data-bs-target="#examplecon">Contact Us</button>
+
+      <button (click)="clickAddResto()" class="btn btn-success" type="button" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">AddRestaurent</button>
+
+      <button routerLink="/login" style="margin-left: 5px;" class="btn btn-danger" type="button"
+        data-bs-toggle="modal">Log Out</button>
+
+        <div class="help">
+      <button style="margin-left: 5px;" class="btn btn-info" type="button" data-bs-toggle="modal"
+        data-bs-target="#exampleModal23" (click)="Help">Help</button></div>
+    </div>
+  </div>
+</nav>
+
+<table class="table mt-4">
+  <thead>
+    <tr>
+      <th scope="col">Restaurent Id</th>
+      <th scope="col">Restaurent Name</th>
+      <th scope="col">Restaurent Email</th>
+      <th scope="col">Restaurent Address</th>
+      <th scope="col">Restaurent Phone</th>
+      <th scope="col">Restaurent Services</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of allRestaurentData">
+      <td>{{data.id}}</td>
+      <td>{{data.name}}</td>
+      <td>{{data.email}}</td>
+      <td>{{data.address}}</td>
+      <td>{{data.mobile}}</td>
+      <td>{{data.services}}</td>
+      <td>
+        <button (click)="onEditResto(data)" class="btn btn-info" type="button" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">Edit</button> &nbsp;
+        <button (click)="deleteResto(data.id)" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+ 
+  </tbody>
+</table>
+
+
+<!-- contact form -->
+<div class="modal con fade" id="examplecon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Contact Here</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue" onsubmit="SendEmail(); reset(); return false">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Your Name"
+              id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="abcd@gmail.com"
+              id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="write message here"></textarea>
+            <!-- <input type="text" class="form-control" formControlName="Message" placeholder="abcd@gmail.com"
+              id="exampleInputPassword1"> -->
+          </div>
+          <!-- <div class="mb-3">
+            <label class="form-label">Today Menu</label>
+            <input type="text" class="form-control" formControlName="services" placeholder="chai , coffee"
+              id="exampleInputPassword1"
+              </div> -->
+
+              <script src="https://smtpjs.com/v3/smtp.js"></script>
+              <script>
+                function SendEmail()
+                {
+                  Email.send({
+              Host : "smtp.gmail.com",
+              Username : "maheshpawar30627@gmail.com",
+              Password : "PAWAR7846",
+              To : 'maheshpawar30627@gmail.com',
+              From : document.getElementById("email").value,
+              Subject : "New Contact Form Enquiry",
+              Body : "Name : "+ document.getElementById("name").value
+                      + "<br> Email : " + document.getElementById("email").value
+                      + "<br> Messege : " + document.getElementById("messege").value
+          }).then(
+            message => alert("message sends successfully..")
+          );
+                }
+              </script>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clear">Close</button>
+        <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#examplecon">Send Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Records</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Restaurent Name"
+              id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="abcd@gmail.com"
+              id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" formControlName="address"
+              placeholder="Abc road , near abc , pin: 12546" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mobile</label>
+            <input type="number" class="form-control" formControlName="mobile" placeholder="+91-1234567890"
+              id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Services</label>
+            <input type="text" class="form-control" formControlName="services" placeholder="chai , coffee"
+              id="exampleInputPassword1">
+          </div>
+          <!-- <div class="mb-3">
+            <label class="form-label">Today Menu</label>
+            <input type="text" class="form-control" formControlName="services" placeholder="chai , coffee"
+              id="exampleInputPassword1">
+              </div> -->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clear">Close</button>
+        <button *ngIf="showAdd" type="button" class="btn btn-primary" (click)="addRestaurent()" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">Add Details</button>
+        <button *ngIf="showBtn" type="button" class="btn btn-primary" (click)="updateResto()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end -->

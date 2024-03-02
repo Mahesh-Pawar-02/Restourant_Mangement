@@ -1,0 +1,17 @@
+.card{
+    position: relative;
+    left: 50%;
+    margin-top: 5%;
+    border: 2px solid #c3c9d0;
+    border-radius: 10px;
+    padding: 55px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.377);
+
+}
+
+.Reset
+{
+    margin-left:100px;
+    margin-top: -37px;
+}
