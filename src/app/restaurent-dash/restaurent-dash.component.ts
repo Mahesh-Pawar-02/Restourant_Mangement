@@ -11,15 +11,12 @@ import {RestaurentData} from './restaurent.model';
 })
 
 export class RestaurentDashComponent implements OnInit {
-
   formValue!:FormGroup
   restaurentModelObj : RestaurentData = new RestaurentData;
   allRestaurentData: any;
   showAdd!:boolean;
   showBtn!:boolean;
-
   constructor(private formbuilder: FormBuilder, private api:ApiService, private toastr: ToastrService) { }
-
   ngOnInit(): void {
     this.formValue = this.formbuilder.group({
       name: [''],
@@ -27,26 +24,16 @@ export class RestaurentDashComponent implements OnInit {
       mobile: [''],
       address: [''],
       services: [''],
-
-
     })
+    this.allRestaurentData = []
     this.getAllData();
   }
 
-  Help()
-  {
-    
-  }
+  Help(){}
 
-
-
-  clickAddResto()
-  {
-    this.showAdd = true;
-  }
+  clickAddResto(){this.showAdd = true;}
  
-  addRestaurent()
-  {
+  addRestaurent(){
     if(this.allRestaurentData.length == 0) {
       this.restaurentModelObj.id = 1
     }else {
@@ -57,58 +44,31 @@ export class RestaurentDashComponent implements OnInit {
     this.restaurentModelObj.mobile = this.formValue.value.mobile;
     this.restaurentModelObj.address = this.formValue.value.address;
     this.restaurentModelObj.services = this.formValue.value.services;
-
-    this.api.postRestaurent(this.restaurentModelObj).subscribe(res => {
-      console.log(res);
-      alert("Restaurent Added Successfully");
-      this.formValue.reset();
-
-      let ref= document.getElementById('close');
-      ref?.click();
-
-      this.getAllData();
-
-    }, err=>{
-      console.log(err);
-      alert("Restaurent Added Failed!");
-    })
     
     this.api.addRestaurent(this.restaurentModelObj).subscribe((res: any) => {
       this.toastr.success('Restorant added Successfully');
       this.formValue.reset();
-
       let ref= document.getElementById('close');
       ref?.click();
-
+      this.getAllData()
     })
   }
+
   contact() {  }
-
-
-  
-
-
-  getAllData()
-  {
-    this.api.getRestaurent().subscribe(res => {
-      this.allRestaurentData= res;
-    }, err=>{
-      console.log(err);
+  getAllData(){
+    this.api.getRestaurent().subscribe((res: any) => {
+        this.allRestaurentData = res.hotels
     })
   }
-
-  deleteResto(data: any)
-  {
+  deleteResto(id: number){
+    const data = {
+      id: id
+    }
     this.api.deleteRestaurant(data).subscribe((res: any) => {
-      console.log(res);
-      alert("Restaurent Deleted Successfully");
+      this.toastr.success(res.msg);
       this.getAllData();
     })
   }
-
-
-  
-
   onEditResto(data: any)
   {
     this.showAdd = false;
@@ -120,6 +80,7 @@ export class RestaurentDashComponent implements OnInit {
     this.formValue.controls['mobile'].setValue(data.mobile);
     this.formValue.controls['address'].setValue(data.address);
     this.formValue.controls['services'].setValue(data.services);
+    
  
   }
   updateResto(){
@@ -129,15 +90,13 @@ export class RestaurentDashComponent implements OnInit {
     this.restaurentModelObj.address = this.formValue.value.address;
     this.restaurentModelObj.services = this.formValue.value.services;
 
-    this.api.updateRestaurant(this.restaurentModelObj.id,this.restaurentModelObj).subscribe((res: any) => {
-      alert("Restaurent Updated Successfully");
-      this.formValue.reset();
+    this.api.updateRestaurant(this.restaurentModelObj).subscribe((res: any) => {
 
+      this.toastr.success(res.msg)
+      this.formValue.reset();
       let ref= document.getElementById('close');
       ref?.click();
-
       this.getAllData();
-
     })
     
   }

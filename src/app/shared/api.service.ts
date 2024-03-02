@@ -13,7 +13,7 @@ export class ApiService
   
   addRestaurent(restaurentModelObj: RestaurentData) 
   {
-    return this._http.post<any>("http://localhost:5000/addResto/",restaurentModelObj).pipe(map((res:any)=>{
+    return this._http.post<any>("http://localhost:8000/api/resto/create/",restaurentModelObj).pipe(map((res:any)=>{
       console.log(res)
       return res;
     }));
@@ -22,33 +22,33 @@ export class ApiService
   constructor(private _http: HttpClient) { }
 
   //POST request
-  postRestaurent(data:any ) 
-  {
+  postRestaurent(data:any ) {
     return this._http.post<any>("http://localhost:3000/posts", data).pipe(map((res:any)=>{
       return res;
     }))
   }
 
   //GET request
-  getRestaurent() 
-  {
-    return this._http.get<any>("http://localhost:3000/posts").pipe(map((res:any)=>{
+  getRestaurent() {
+    return this._http.get<any>("http://localhost:8000/api/resto/get").pipe(map((res:any)=>{
+      console.log(res)
       return res;
     }));
   }
 
   //delete request
-  deleteRestaurant(id:number) 
-  {
-    return this._http.delete<any>("http://localhost:3000/posts/"+id).pipe(map((res:any)=>{
+  deleteRestaurant(data: any) {
+    return this._http.post<any>("http://localhost:8000/api/resto/delete", data).pipe(map((res:any)=>{
+      console.log(res)
       return res;
     }));
   }
 
   //update request
-  updateRestaurant(id: number, data: any) 
+  updateRestaurant(data: any) 
   {
-    return this._http.put<any>("http://localhost:3000/posts/"+id,data).pipe(map((res:any)=>{
+    return this._http.post<any>("http://localhost:8000/api/resto/update",data).pipe(map((res:any)=>{
+      console.log(res)
       return res;
     }));
   }

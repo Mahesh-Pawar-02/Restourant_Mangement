@@ -11,6 +11,8 @@
                 
                  [formGroup]="signupForm" (ngSubmit)= "signUp()"
                  novalidate>
+
+                 <!-- EMAIL -->
                     <div class="mb-3">
                       <label class="form-label">Email address</label>
                       <input  [class.is-invalid] = "signupForm.get('email')?.invalid && signupForm.get('email')?.touched" 
@@ -18,24 +20,28 @@
                       <small [class.d-none]="signupForm.get('email')?.valid || signupForm.get('email')?.untouched" class="text-danger">Please enter valid email address</small>
                       <span></span>
                     </div>
+
+                    <!-- NAME -->
                     <div class="mb-3">
                         <label class="form-label">Name</label>
                         <input formControlName="name"  type="text" class="form-control" id="exampleInputName1"  placeholder="Name">
                       </div>
+
+                      <!-- PHONE -->
                       <div class="mb-3">
                         <label class="form-label">Phone Number</label>
-                        <!-- <input  formControlName="mobile"  type="number" class="form-control" id="exampleInputEmail1"  placeholder="Phone"> -->
-
                         <input [class.is-invalid] = "signupForm.get('mobile')?.invalid && signupForm.get('mobile')?.touched" 
                         formControlName="mobile" type="text" class="form-control" id="exampleInputPhone1"  placeholder="Phone">
                       <small [class.d-none]="signupForm.get('mobile')?.valid || signupForm.get('mobile')?.untouched" class="text-danger">Please enter valid mobile number</small>
                       </div>
+
+                      <!-- PASSWORD -->
                     <div class="mb-3">
                       <label class="form-label">Password</label>
                       <input  
                       [class.is-invalid] = "signupForm.get('password')?.invalid && signupForm.get('email')?.touched" 
                       formControlName="password" type="password" class="form-control" id="exampleInputPassword1"  placeholder="Admin@123">
-                      <!-- <small >Please enter valid password</small> -->
+                      <small >Please enter valid password</small>
                       <span></span>
                     </div>
                     <button type="submit" class="btn btn-primary">sign up</button>

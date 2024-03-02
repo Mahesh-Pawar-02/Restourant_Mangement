@@ -10,6 +10,10 @@ const hotelSchema = z.object({
     .min(3, { message: "Name must be at least 3 chars. " })
     .max(255, { message: "Name must not be more than 255 chars. " }),
 
+    address: z
+    .string({ required_error: "address is required" })
+    .trim(),
+
     email: z
     .string({ required_error: "Email is required" })
     .trim()
@@ -17,11 +21,14 @@ const hotelSchema = z.object({
     .min(3, { message: "Email must be at least 3 chars. " })
     .max(255, { message: "Email must not be more than 255 chars. " }),
 
-    message: z
+    services: z
+    .string({ required_error: "services is required" }),
+
+    mobile: z
     .string({ required_error: "Message is required" })
     .trim()
-    .min(20, { message: "Message must be at least of 20 chars. " })
-    .max(1024, { message: "Message must not be more than 1024 chars. " })
+    .min(10, { message: "Message must be at least of 10 chars. " })
+    .max(10, { message: "Message must not be more than 10 chars. " })
 })
 
-module.exports = contactSchema
+module.exports = hotelSchema
