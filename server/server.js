@@ -5,6 +5,7 @@ const app = express()
 const authRoute = require('./router/auth-router')
 const contactRoute = require('./router/contact-router')
 const restoRoute = require('./router/resto-router')
+const adminRoute = require('./router/admin-router')
 const connectDb = require('./utils/db')
 
 const corsOptions = {
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use('/api/auth', authRoute)
 app.use('/api/form', contactRoute)
 app.use('/api/resto', restoRoute)
+app.use('/api/admin', adminRoute)
 
 const PORT = 8000
 

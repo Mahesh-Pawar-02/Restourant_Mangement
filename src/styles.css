@@ -1,13 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 * {
 
-  font-family: "Anta", sans-serif;
+  font-family: 'Roboto Slab', serif;
   font-weight: 400;
   font-style: normal;
 
 }
-
-/* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */
 
 /* position */
 .toast-center-center {

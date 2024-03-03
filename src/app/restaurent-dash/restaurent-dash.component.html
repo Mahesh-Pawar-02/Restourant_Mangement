@@ -1,9 +1,12 @@
 <nav class="navbar navbar-light bg-primary">
   <div class="container-fluid">
-    <h2>Restaurent Record App</h2>
+    <h2 id="logo">Restaurent Record App</h2>
     <div class="d-flex">
 
-      <button (click)="contact()" class="btn btn-secondary" type="button" data-bs-toggle="modal"
+      <button class="btn btn-warning"  type="button" (click)="goToAdmin()"
+        style="margin-right: 5px;">Admin</button>
+
+      <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
         style="margin-right: 5px;" data-bs-target="#examplecon">Contact Us</button>
 
       <button (click)="clickAddResto()" class="btn btn-success" type="button" data-bs-toggle="modal"
@@ -12,9 +15,10 @@
       <button routerLink="/login" style="margin-left: 5px;" class="btn btn-danger" type="button"
         data-bs-toggle="modal">Log Out</button>
 
-        <div class="help">
-      <button style="margin-left: 5px;" class="btn btn-info" type="button" data-bs-toggle="modal"
-        data-bs-target="#exampleModal23" (click)="Help">Help</button></div>
+      <div class="help">
+        <button style="margin-left: 5px;" class="btn btn-info" type="button" data-bs-toggle="modal"
+          data-bs-target="#exampleModal23" (click)="Help">Help</button>
+      </div>
     </div>
   </div>
 </nav>
@@ -45,72 +49,11 @@
         <button (click)="deleteResto(data.id)" class="btn btn-danger">Delete</button>
       </td>
     </tr>
- 
+
   </tbody>
 </table>
 
 
-<!-- contact form -->
-<div class="modal con fade" id="examplecon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Contact Here</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="formValue" onsubmit="SendEmail(); reset(); return false">
-          <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" formControlName="name" placeholder="Your Name"
-              id="exampleInputEmail1" aria-describedby="emailHelp">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" formControlName="email" placeholder="abcd@gmail.com"
-              id="exampleInputPassword1">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Message</label>
-            <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="write message here"></textarea>
-            <!-- <input type="text" class="form-control" formControlName="Message" placeholder="abcd@gmail.com"
-              id="exampleInputPassword1"> -->
-          </div>
-          <!-- <div class="mb-3">
-            <label class="form-label">Today Menu</label>
-            <input type="text" class="form-control" formControlName="services" placeholder="chai , coffee"
-              id="exampleInputPassword1"
-              </div> -->
-
-              <script src="https://smtpjs.com/v3/smtp.js"></script>
-              <script>
-                function SendEmail()
-                {
-                  Email.send({
-              Host : "smtp.gmail.com",
-              Username : "maheshpawar30627@gmail.com",
-              Password : "PAWAR7846",
-              To : 'maheshpawar30627@gmail.com',
-              From : document.getElementById("email").value,
-              Subject : "New Contact Form Enquiry",
-              Body : "Name : "+ document.getElementById("name").value
-                      + "<br> Email : " + document.getElementById("email").value
-                      + "<br> Messege : " + document.getElementById("messege").value
-          }).then(
-            message => alert("message sends successfully..")
-          );
-                }
-              </script>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clear">Close</button>
-        <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
-          data-bs-target="#examplecon">Send Message</button>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -146,21 +89,75 @@
             <input type="text" class="form-control" formControlName="services" placeholder="chai , coffee"
               id="exampleInputPassword1">
           </div>
-          <!-- <div class="mb-3">
-            <label class="form-label">Today Menu</label>
-            <input type="text" class="form-control" formControlName="services" placeholder="chai , coffee"
-              id="exampleInputPassword1">
-              </div> -->
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clear">Close</button>
         <button *ngIf="showAdd" type="button" class="btn btn-primary" (click)="addRestaurent()" data-bs-toggle="modal"
           data-bs-target="#exampleModal">Add Details</button>
-        <button *ngIf="showBtn" type="button" class="btn btn-primary" (click)="updateResto()">Update</button>
+        <button *ngIf="showBtn" type="button" class="btn btn-primary" (click)="updateResto()" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">Update</button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- contact form -->
+<div class="modal con fade" id="examplecon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Connect Here</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="contactForm">
+
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Name"
+              id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="abcd@gmail.com"
+              id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea type="text"  name="" id="" cols="30" rows="10" class="form-control" formControlName="message"
+            placeholder="your message here">
+
+            </textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clear">Close</button>
+        <button type="button" class="btn btn-primary" (click)="contact()">Send Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- send message to email -->
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+  function SendEmail() {
+    Email.send({
+      Host: "smtp.gmail.com",
+      Username: "maheshpawar30627@gmail.com",
+      Password: "PAWAR7846",
+      To: 'maheshpawar30627@gmail.com',
+      From: document.getElementById("email").value,
+      Subject: "New Contact Form Enquiry",
+      Body: "Name : " + document.getElementById("name").value
+        + "<br> Email : " + document.getElementById("email").value
+        + "<br> Messege : " + document.getElementById("messege").value
+    }).then(
+      message => alert("message sends successfully..")
+    );
+  }
+</script>
 
 <!-- end -->

@@ -64,4 +64,28 @@ export class ApiService
       return res;
     }));
   }
+  contactAPI(data: any) {
+    return this._http.post<any>("http://localhost:8000/api/form/contact/", data).pipe(map((res: any)=>{
+      console.log(res)
+      return res
+    }))
+  }
+  getHotels() {
+    return this._http.get<any>("http://localhost:8000/api/admin/hotels").pipe(map((res: any)=>{
+      console.log(res)
+      return res
+    }))
+  }
+  getUsers() {
+    return this._http.get<any>("http://localhost:8000/api/admin/users").pipe(map((res: any)=>{
+      console.log(res)
+      return res
+    }))
+  }
+  getContacts() {
+    return this._http.get<any>("http://localhost:8000/api/admin/messages").pipe(map((res: any)=>{
+      console.log(res)
+      return res
+    }))
+  }
 }

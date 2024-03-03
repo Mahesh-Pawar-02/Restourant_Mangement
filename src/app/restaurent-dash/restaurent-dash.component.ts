@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder  } from '@angular/forms';
 import { ApiService } from '../shared/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 import {RestaurentData} from './restaurent.model';
 
 @Component({
@@ -12,11 +13,13 @@ import {RestaurentData} from './restaurent.model';
 
 export class RestaurentDashComponent implements OnInit {
   formValue!:FormGroup
+  contactForm!:FormGroup
   restaurentModelObj : RestaurentData = new RestaurentData;
   allRestaurentData: any;
   showAdd!:boolean;
   showBtn!:boolean;
-  constructor(private formbuilder: FormBuilder, private api:ApiService, private toastr: ToastrService) { }
+  constructor(private formbuilder: FormBuilder, private api:ApiService, 
+    private toastr: ToastrService, private _router: Router) { }
   ngOnInit(): void {
     this.formValue = this.formbuilder.group({
       name: [''],
@@ -24,6 +27,11 @@ export class RestaurentDashComponent implements OnInit {
       mobile: [''],
       address: [''],
       services: [''],
+    })
+    this.contactForm = this.formbuilder.group({
+      name: [''],
+      email: [''],
+      message: ['']
     })
     this.allRestaurentData = []
     this.getAllData();
@@ -54,7 +62,24 @@ export class RestaurentDashComponent implements OnInit {
     })
   }
 
-  contact() {  }
+  contact() { 
+    console.log('hi')
+    const data = {
+      username: this.contactForm.value.name,
+      email: this.contactForm.value.email,
+      message: this.contactForm.value.message
+    }
+
+    this.api.contactAPI(data).subscribe((res: any) => {
+      this.toastr.success(res.msg);
+      
+      if (res.msg == "Messege Send Successfully") {
+        this.contactForm.reset();
+        let ref = document.getElementById('close');
+        ref?.click();
+      }
+    })
+   }
   getAllData(){
     this.api.getRestaurent().subscribe((res: any) => {
         this.allRestaurentData = res.hotels
@@ -98,9 +123,8 @@ export class RestaurentDashComponent implements OnInit {
       ref?.click();
       this.getAllData();
     })
-    
   }
-
-
-  
+  goToAdmin() {
+    this._router.navigate(['/admin']);
+  }
 }

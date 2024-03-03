@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="con">
+        <h3>Users</h3>
+        <div class="box" *ngFor="let data of users">
+            <p class="content">username: {{data.username}}</p>
+            <p class="content">email: {{data.email}}</p>
+            <p class="content">phone: {{data.phone}}</p>
+            <button class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+    <div class="con">
+        <h3>Hotels</h3>
+        <div class="box" *ngFor="let data of hotels">
+            <p class="content">id: {{data.id}}</p>
+            <p class="content">name: {{data.name}}</p>
+            <p class="content">address: {{data.address}}</p>
+            <p class="content">email: {{data.email}}</p>
+            <p class="content">services: {{data.services}}</p>
+            <p class="content">mobile: {{data.mobile}}</p>
+            <button class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+    <div class="con">
+        <h3>Contacts</h3>
+        <div class="box" *ngFor="let data of contacts">
+            <p class="content">username: {{data.username}}</p>
+            <p class="content">email: {{data.email}}</p>
+            <p class="content">message: {{data.message}}</p>
+            <button class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</div>

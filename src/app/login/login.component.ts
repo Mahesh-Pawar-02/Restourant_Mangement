@@ -48,9 +48,6 @@ export class LoginComponent implements OnInit {
   // }
 
   logIn() {
-    if (this.loginForm.value.email != '' &&
-      this.loginForm.value.password != '') {
-
       const data = {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
@@ -66,11 +63,6 @@ export class LoginComponent implements OnInit {
           ref?.click();
         }
       })
-
-    }
-    else {
-      this.toastr.error("Please fill all the fields")
-    }
 
   }
 }

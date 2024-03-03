@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RestaurentDashComponent } from './restaurent-dash/restaurent-dash.component';
 import { SignupComponent } from './signup/signup.component';
 import { HelpcComponent } from './helpc/helpc.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,9 @@ const routes: Routes = [
  {
    path: 'signup', component: SignupComponent 
  }, 
+ {
+  path: 'admin', component: AdminComponent
+ },
  {
    path:'restaurent' , component: RestaurentDashComponent
  },

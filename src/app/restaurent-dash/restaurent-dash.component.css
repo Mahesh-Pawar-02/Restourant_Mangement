@@ -12,3 +12,7 @@ td, th{
     /* border: 1px solid; */
     text-align: center;
 }
+
+#logo{
+    font-family: 'Madimi One', sans-serif !important;
+}

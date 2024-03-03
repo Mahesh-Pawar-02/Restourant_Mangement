@@ -8,8 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { AdminComponent } from './admin/admin.component'
 import { HelpcComponent } from './helpc/helpc.component';
-import { ContactComponent } from './contact/contact.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
@@ -21,9 +21,7 @@ import { ToastrModule, provideToastr } from 'ngx-toastr';
     LoginComponent,
     SignupComponent,
     HelpcComponent,
-    ContactComponent,
-    
-  
+    AdminComponent
   ],
   imports: [
     BrowserModule,
