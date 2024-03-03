@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder  } from '@angular/forms';
-import { ApiService } from '../shared/api.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import {RestaurentData} from './restaurent.model';
+import { RestaurentData } from './restaurent.model';
+
+// firebase database
+import { app } from '../firebase/config'
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
+
 
 @Component({
   selector: 'app-restaurent-dash',
@@ -12,13 +16,14 @@ import {RestaurentData} from './restaurent.model';
 })
 
 export class RestaurentDashComponent implements OnInit {
-  formValue!:FormGroup
-  contactForm!:FormGroup
-  restaurentModelObj : RestaurentData = new RestaurentData;
+  formValue!: FormGroup
+  contactForm!: FormGroup
+  db: any
+  restaurentModelObj: RestaurentData = new RestaurentData;
   allRestaurentData: any;
-  showAdd!:boolean;
-  showBtn!:boolean;
-  constructor(private formbuilder: FormBuilder, private api:ApiService, 
+  showAdd!: boolean;
+  showBtn!: boolean;
+  constructor(private formbuilder: FormBuilder,
     private toastr: ToastrService, private _router: Router) { }
   ngOnInit(): void {
     this.formValue = this.formbuilder.group({
@@ -28,6 +33,7 @@ export class RestaurentDashComponent implements OnInit {
       address: [''],
       services: [''],
     })
+    this.db = getFirestore(app);
     this.contactForm = this.formbuilder.group({
       name: [''],
       email: [''],
@@ -37,92 +43,93 @@ export class RestaurentDashComponent implements OnInit {
     this.getAllData();
   }
 
-  Help(){}
+  Help() { }
 
-  clickAddResto(){this.showAdd = true;}
- 
-  addRestaurent(){
-    if(this.allRestaurentData.length == 0) {
-      this.restaurentModelObj.id = 1
-    }else {
-    this.restaurentModelObj.id = Number(this.allRestaurentData[this.allRestaurentData.length - 1].id )+ Number(1)
-    }
+  clickAddResto() { this.showAdd = true; }
+
+  async addRestaurent() {
     this.restaurentModelObj.name = this.formValue.value.name;
     this.restaurentModelObj.email = this.formValue.value.email;
     this.restaurentModelObj.mobile = this.formValue.value.mobile;
     this.restaurentModelObj.address = this.formValue.value.address;
     this.restaurentModelObj.services = this.formValue.value.services;
-    
-    this.api.addRestaurent(this.restaurentModelObj).subscribe((res: any) => {
-      this.toastr.success('Restorant added Successfully');
-      this.formValue.reset();
-      let ref= document.getElementById('close');
-      ref?.click();
+
+    try {
+      const docRef = await addDoc(collection(this.db, "hotels"), {
+        name: this.restaurentModelObj.name,
+        email: this.restaurentModelObj.email,
+        address: this.restaurentModelObj.address,
+        mobile: this.restaurentModelObj.mobile,
+        services: this.restaurentModelObj.services
+      });
       this.getAllData()
-    })
+      this.toastr.success("Restourant added");
+    } catch (e) {
+      this.toastr.error(`Error adding document: ${e}`);
+    }
   }
 
-  contact() { 
-    console.log('hi')
-    const data = {
-      username: this.contactForm.value.name,
-      email: this.contactForm.value.email,
-      message: this.contactForm.value.message
+  async contact() {
+    try {
+      const docRef = await addDoc(collection(this.db, "contacts"), {
+        name: this.contactForm.value.name,
+        email: this.contactForm.value.email,
+        message: this.contactForm.value.message
+      });
+      this.toastr.success("Message send");
+    } catch (e) {
+      this.toastr.error(`Error adding document: ${e}`);
     }
-
-    this.api.contactAPI(data).subscribe((res: any) => {
-      this.toastr.success(res.msg);
-      
-      if (res.msg == "Messege Send Successfully") {
-        this.contactForm.reset();
-        let ref = document.getElementById('close');
-        ref?.click();
-      }
-    })
-   }
-  getAllData(){
-    this.api.getRestaurent().subscribe((res: any) => {
-        this.allRestaurentData = res.hotels
-    })
   }
-  deleteResto(id: number){
-    const data = {
-      id: id
+  async getAllData() {
+    this.allRestaurentData = []
+    const querySnapshot = await getDocs(collection(this.db, "hotels"));
+    querySnapshot.forEach((doc) => {
+      this.allRestaurentData.push(doc)
+    });
+  }
+  async deleteResto(id: number) {
+    try {
+      const docRef = await deleteDoc(doc(this.db, "hotels", `${id}`))
+      this.toastr.success("Restourant deleted");
+      this.getAllData()
+    } catch (e) {
+      this.toastr.error(`Error deleting Restourant: ${e}`);
     }
-    this.api.deleteRestaurant(data).subscribe((res: any) => {
-      this.toastr.success(res.msg);
-      this.getAllData();
-    })
   }
-  onEditResto(data: any)
-  {
+  onEditResto(id:number, data: any) {
     this.showAdd = false;
     this.showBtn = true;
-    
-    this.restaurentModelObj.id = data.id;
+
+    this.restaurentModelObj.id = id;
     this.formValue.controls['name'].setValue(data.name);
     this.formValue.controls['email'].setValue(data.email);
     this.formValue.controls['mobile'].setValue(data.mobile);
     this.formValue.controls['address'].setValue(data.address);
     this.formValue.controls['services'].setValue(data.services);
-    
- 
   }
-  updateResto(){
+  async updateResto() {
     this.restaurentModelObj.name = this.formValue.value.name;
     this.restaurentModelObj.email = this.formValue.value.email;
     this.restaurentModelObj.mobile = this.formValue.value.mobile;
     this.restaurentModelObj.address = this.formValue.value.address;
     this.restaurentModelObj.services = this.formValue.value.services;
 
-    this.api.updateRestaurant(this.restaurentModelObj).subscribe((res: any) => {
-
-      this.toastr.success(res.msg)
-      this.formValue.reset();
-      let ref= document.getElementById('close');
-      ref?.click();
-      this.getAllData();
-    })
+    const Ref = doc(this.db, "hotels", `${this.restaurentModelObj.id}`);
+    try {
+      await updateDoc(Ref, { 
+        name: this.restaurentModelObj.name,
+        email: this.restaurentModelObj.email,
+        mobile: this.restaurentModelObj.mobile,
+        address: this.restaurentModelObj.address,
+        services: this.restaurentModelObj.services,
+      });
+      this.toastr.success("Restourant updated")
+      this.getAllData()
+    } catch (error) {
+      this.toastr.error(`Error updating Restourant: ${error}`);
+    }
+    
   }
   goToAdmin() {
     this._router.navigate(['/admin']);

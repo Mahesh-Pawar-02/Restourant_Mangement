@@ -3,7 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from '../shared/api.service';
+
+// firebase auth
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from '../firebase/config'
 
 @Component({
   selector: 'app-login',
@@ -13,55 +16,30 @@ import { ApiService } from '../shared/api.service';
 
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  auth!: any
   constructor(private formbuilder: FormBuilder, private _http: HttpClient, private _router: Router,
-    private toastr: ToastrService, private api: ApiService) { }
+    private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     this.loginForm = this.formbuilder.group({
       email: [''],
       password: ['']
     });
+    this.auth = getAuth(app);
   }
-
-  // SetData()
-  // {
-  //   this.MarvellousForm.setValue(
-  //     {
-  //       username : 'Piyush',
-  //       passowrd : 'abcd',
-  //       ConfirmPass :  'abcd',
-  //       MarvellousClass : 
-  //       {
-  //         batch : 'Python',
-  //         fees : '5000'
-  //       }
-  //     }
-  //   )
-  // }
-
-  // Reset() {
-  //   this.loginForm.reset(
-  //     {
-
-  //     }
-  //   )
-  // }
-
   logIn() {
-      const data = {
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password
-      }
-
-      this.api.loginAPI(data).subscribe((res: any) => {
-        this.toastr.success(res.msg);
-        
-        if (res.msg == "Login Successful") {
-          this.loginForm.reset();
-          this._router.navigate(['/restaurent']);
-          let ref = document.getElementById('close');
-          ref?.click();
-        }
+    const user = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    }
+    signInWithEmailAndPassword(this.auth, user.email, user.password)
+      .then((userCredential) => {
+        this.toastr.success("Logged In Successfully")
+        this._router.navigate(['/restaurent'])
       })
+      .catch((error) => {
+        const errorMessage = error.message;
+        this.toastr.error(errorMessage)
+      });
   }
 }

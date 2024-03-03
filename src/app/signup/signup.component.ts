@@ -3,9 +3,12 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RestoService } from '../resto.service';
-import { NgForm, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ApiService } from '../shared/api.service';
+
+// firebase auth
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { app } from '../firebase/config'
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
 
 @Component({
   selector: 'app-signup',
@@ -14,62 +17,48 @@ import { ApiService } from '../shared/api.service';
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup
+  auth!: any
+  db!: any
+
   constructor(private formbuilder: FormBuilder, private _http: HttpClient, private _router: Router, private _restoService: RestoService,
-    private toastr: ToastrService, private api: ApiService) { }
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.signupForm = this.formbuilder.group({
       name: [''],
       email: ['', [Validators.required, Validators.pattern(/^[A-Za-z]*[\._\-0-9]*[@][A-Za-z]*[\.][a-z]{3}$/)]],
       mobile: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      password: ['']})
+      password: ['']
+    })
+    this.db = getFirestore(app)
+    this.auth = getAuth(app);
   }
 
-  // ngOnInit() 
-  // {
-  //   this._eventService.getEvents()
-  //     .subscribe(
-  //       res => this.events = res,
-  //       err => console.log(err)
-  //     )
-  // }
 
-
-  signUp() {
+  async signUp() {
     // console.log(this.signupForm.value)
-    if (this.signupForm.value.name != ''
-      && this.signupForm.value.email != ''
-      && this.signupForm.value.mobile != ''
-      && this.signupForm.value.password != ''
-    ) {
-      // this._http.post<any>('http://localhost:3000/signup',this.signupForm.value).subscribe(res=>{
+    if (this.signupForm.value.name != '' && this.signupForm.value.email != '' && this.signupForm.value.mobile != '' && this.signupForm.value.password != '') {
 
-      //   console.log(res)
-      //   this.toastr.success('Signup Successfully in db.json');
-      //   this.signupForm.reset();
-      //   this._router.navigate(['/login']);
-      // }), (err: any)=>{
-      //   console.log(err);
-      //   alert('Signup Error');
-      // }
-      const data = {
-        username: this.signupForm.value.name,
-        email: this.signupForm.value.email,
-        phone: this.signupForm.value.mobile,
-        password: this.signupForm.value.password
-      }
-      this.api.signUpAPI(data).subscribe((res: any) => {
-        this.toastr.success(res.msg);
-        if (res.msg == "successsfully registered") {
-          this.signupForm.reset();
-          this._router.navigate(['/login']);
-          let ref = document.getElementById('close');
-          ref?.click();
+      createUserWithEmailAndPassword(this.auth, this.signupForm.value.email, this.signupForm.value.password)
+        .then(() => {
+          this.toastr.success("Signup Successfully")
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          this.toastr.error(errorMessage)
+        });
+        try {
+          const docRef = await addDoc(collection(this.db, "users"), {
+            name: this.signupForm.value.name,
+            email: this.signupForm.value.email,
+            mobile: this.signupForm.value.mobile,
+            password: this.signupForm.value.password
+          });
+          this.toastr.success("User saved");
+          this._router.navigate(['/login'])
+        } catch (e) {
+          this.toastr.error(`Error adding document: ${e}`);
         }
-
-      })
-    } else {
-      this.toastr.error('Please fill all the fields');
     }
   }
 
