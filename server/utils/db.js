@@ -8,7 +8,7 @@ const URIMAHESH =
 
 const connectDb = async () => {
     try {
-        await mongoose.connect(URIRUSHI)
+        await mongoose.connect(URIMAHESH)
         console.log('connection successful to DB')
     } catch (error) {
         console.error('database connection failed')
