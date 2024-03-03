@@ -63,6 +63,5 @@ export class LoginComponent implements OnInit {
           ref?.click();
         }
       })
-
   }
 }
