@@ -1,0 +1,198 @@
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap" rel="stylesheet">
+</head>
+
+
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+
+  <div class="top-bar">
+
+    <ul class="left con">
+      <li><a href="https://www.facebook.com/profile.php?id=100054716893775&mibextid=ZbWKwL" class="fa-brands fa-facebook"></a></li>
+      <li><a href="https://www.instagram.com/official_mahesh_02/" class="fa-brands fa-instagram"></a></li>
+      <li><a
+          href="https://api.whatsapp.com/send?phone=+919322150275&amp;text=Hello!%20I%20will%20like%20to%20connect%20to%20Marvellous%20Infosystems."
+          class="fa-brands fa-whatsapp"></a></li>
+      <li><a href="https://www.youtube.com/@official_mahesh_02" class="fa-brands fa-youtube"></a></li>
+      <li><a href="https://github.com/Mahesh-Pawar-02" class="fa-brands fa-github"></a></li>
+      <li><a href="www.linkedin.com/in/mahesh-dinkar-pawar" class="fa-brands fa-linkedin"></a></li>
+    </ul>
+
+    <ul class="right con">
+      <li><i class="fa fa-envelope"></i>maheshpawar30627&#64;gmail.com</li>
+      <li><i class="fa fa-phone"></i>+91 9322150275</li>
+    </ul>
+
+  </div>
+
+</nav>
+<nav class="navbar navbar-light" style="background-color: #317dcd; height: 8vh;">
+  <div class="container-fluid">
+
+    <h2 id="logo" style="color: hsl(0, 0%, 96%);" 
+    >Restaurent Record App</h2>
+    <!-- <img src="./logo-removebg-preview.png" id = "logo" alt="hjy"> -->
+    <div class="d-flex">
+
+
+      <button *ngIf="admin" class="btn" type="button" (click)="goToAdmin()" style="margin-right: 5px;">Admin</button>
+
+      <button (click)="clickAddResto()" class="btn" type="button" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">Add Restaurent</button>
+
+      <button routerLink="/login" style="margin-left: 5px;" class="btn" type="button" data-bs-toggle="modal">Log
+        Out</button>
+
+      <button class="btn" type="button" data-bs-toggle="modal" style="margin-right: 5px;"
+        data-bs-target="#examplecon">Contact Us</button>
+
+      <div class="help">
+        <button style="margin-left: 5px;" class="btn" type="button" data-bs-toggle="modal"
+          data-bs-target="#exampleModal23" (click)="Help">Help</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<table class="table mt-4">
+  <thead>
+    <tr>
+      <th scope="col">Restaurent Id</th>
+      <th scope="col">Restaurent Name</th>
+      <th scope="col">Restaurent Email</th>
+      <th scope="col">Restaurent Address</th>
+      <th scope="col">Restaurent Phone</th>
+      <th scope="col">Restaurent Services</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of allRestaurentData">
+      <td>{{data.id}}</td>
+      <td>{{data.name}}</td>
+      <td>{{data.email}}</td>
+      <td>{{data.address}}</td>
+      <td>{{data.mobile}}</td>
+      <td>{{data.services}}</td>
+      <td>
+        <button (click)="onEditResto(data)" class="btn btn-info" type="button" data-bs-toggle="modal"
+          data-bs-target="#exampleModal"><i class="fa-regular fa-pen-to-square"></i></button> &nbsp;
+        <button (click)="deleteResto(data.id)" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Records</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Restaurent Name"
+              id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="abcd@gmail.com"
+              id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" formControlName="address"
+              placeholder="Abc road , near abc , pin: 12546" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mobile</label>
+            <input type="number" class="form-control" formControlName="mobile" placeholder="+91-1234567890"
+              id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Services</label>
+            <input type="text" class="form-control" formControlName="services" placeholder="chai , coffee"
+              id="exampleInputPassword1">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clear">Close</button>
+        <button *ngIf="showAdd" type="button" class="btn btn-primary" (click)="addRestaurent()" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">Add Details</button>
+        <button *ngIf="showBtn" type="button" class="btn btn-primary" (click)="updateResto()" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- contact form -->
+<div class="modal con fade" id="examplecon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Connect Here</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="contactForm">
+
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Name" id="exampleInputEmail1"
+              aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="abcd@gmail.com"
+              id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea type="text" name="" id="" cols="30" rows="10" class="form-control" formControlName="message"
+              placeholder="your message here">
+
+            </textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clear">Close</button>
+        <button type="button" class="btn btn-primary" (click)="contact()">Send Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- send message to email -->
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+  function SendEmail() {
+    Email.send({
+      Host: "smtp.gmail.com",
+      Username: "maheshpawar30627@gmail.com",
+      Password: "PAWAR7846",
+      To: 'maheshpawar30627@gmail.com',
+      From: document.getElementById("email").value,
+      Subject: "New Contact Form Enquiry",
+      Body: "Name : " + document.getElementById("name").value
+        + "<br> Email : " + document.getElementById("email").value
+        + "<br> Messege : " + document.getElementById("messege").value
+    }).then(
+      message => alert("message sends successfully..")
+    );
+  }
+</script>
+
+<!-- end -->
