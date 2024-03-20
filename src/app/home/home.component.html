@@ -1,0 +1,113 @@
+<head>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+</head>
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" style="color: #fff;" data-bs-toggle="modal" data-bs-target="#exampleModal"
+      (click)="addFood()">Add Food</a>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- products -->
+<!-- <div class="container">
+  <div class="card">
+    <div class="product-img"></div>
+
+    <div class="product-detail">
+      <span>Chaayos Chai+Snacks=Relax</span><br>
+      <small>Bakery, Beverages</small>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half"></i>
+      </div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel voluptatum in ea nobis sunt sit eos ullam odio doloremque ipsa!
+      </p>
+      <div class="buttons">
+        <div class="price">$50</div>
+        <button class="cart btn">Add to cart</button>
+        <button class="favourite btn">
+          <i class="far fa-heart"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- card 1 start-->
+
+<!-- card 1 end -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add your food</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Hotel Name</label>
+            <input type="text" class="form-control" formControlName="hotelname" placeholder="Restaurent Name"
+              id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Rating</label>
+            <input type="number" class="form-control" formControlName="rating" placeholder="2.2"
+              id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Services</label>
+            <input type="text" class="form-control" formControlName="address"
+              placeholder="Abc road , near abc , pin: 12546" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mobile</label>
+            <input type="number" class="form-control" formControlName="mobile" placeholder="+91-1234567890"
+              id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Services</label>
+            <input type="text" class="form-control" formControlName="services" placeholder="chai , coffee"
+              id="exampleInputPassword1">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clear">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+          Details</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

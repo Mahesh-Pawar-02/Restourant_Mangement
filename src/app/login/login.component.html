@@ -1,33 +1,51 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-atom" [fullScreen]="true">
+  <p style="color: white"> Loading...
+  </p>
+</ngx-spinner>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+
 <body>
+  <div class="containe back">
 
-<div class="containe back">
-  
     <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="text-center">
-                    <h1>Restaurent Login Portal</h1>
-                    <h5>You can login here!</h5>
-                </div>
-                <form
-                [formGroup]="loginForm" (ngSubmit)="logIn()"> 
-                    <div class="mb-3">
-                      <label class="form-label">Email address</label>
-                      <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Email address" autofocus>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">Password</label>
-                      <input  formControlName="password"  type="password" class="form-control" id="exampleInputPassword1">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                    <div class="Reset">
-                      <button type="reset" class="btn btn-primary">Reset</button>
-                    </div>
-                  </form>
-                  <a style="color: #fff; margin-top: 10px;" routerLink="/signup">New User? Click to Sign up</a>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="text-center">
 
+            <h1>Restaurent Login Portal</h1>
+            <h5>You can login here!</h5>
+          </div>
+          <form [formGroup]="loginForm" (ngSubmit)="logIn()">
+            <div class="mb-3">
+              <label class="form-label">Email address</label>
+              <input formControlName="email" type="email" class="form-control" required="required"
+                id="exampleInputEmail1" placeholder="Email address" autofocus>
             </div>
+            <div class="mb-3">
+
+              <label class="form-label">Password</label>
+
+              <input formControlName="password" [type]="changetype ? 'password' : 'text'" class="form-control" id="exampleInputPassword1"
+                placeholder="abc@123" >
+              <span class="eyeicon" (click)="viewpass()">
+                <i 
+                [ngClass]="visible ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'">
+                </i></span>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="openSpinner()">Login</button>
+            <div class="Reset">
+              <button type="reset" class="btn btn-primary">Reset</button>
+            </div>
+          </form>
+          <a style="color: #fff; margin-top: 10px;" routerLink="/signup">New User? Click to Sign up</a>
+
+
+
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </body>

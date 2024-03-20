@@ -1,18 +1,57 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Popp:wght@300;400;500;600;700;800;900&display=swap');
+
 .card{
     position: relative;
-    left: 180%;
-    top: 30%;
+    left: 45%;
+    top: 20%;
     margin-top: 5%;
     border: 2px solid #c3c9d0;
     border-radius: 10px;
     padding: 55px;
     background-color: transparent;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.377);
+    z-index: 50000;
+    box-shadow: #45f3ff;
     color: #fff;
-
+    overflow:hidden;
 }
 
-
+.eyeicon
+{
+    position: relative;
+    left: 390px;
+    bottom: 30px;
+    color: black;
+}
+/* 
+.card::after
+{
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 420px;
+   
+    background: linear-gradient(0deg,transparent,transparent,#45f3ff,#45f3ff,#45f3ff );
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -3s;
+    
+}
+@keyframes animate
+{
+    0%
+    {
+        transform: rotate(0deg);
+    }
+    100%
+    {
+        transform: rotate(360deg);
+    }
+    
+} */
 
 .Reset
 {

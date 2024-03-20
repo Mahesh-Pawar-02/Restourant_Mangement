@@ -22,8 +22,16 @@ export class SignupComponent implements OnInit {
       name: [''],
       email: ['', [Validators.required, Validators.pattern(/^[A-Za-z]*[\._\-0-9]*[@][A-Za-z]*[\.][a-z]{3}$/)]],
       mobile: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      password: ['']})
+      password: ['',[Validators.required, Validators.pattern(/^\d{8}$/)]]})
   }
+
+  visible: boolean = true;
+  changetype :boolean = true;
+  viewpass() {
+    this.visible = !this.visible;
+    this.changetype = !this.changetype;
+  }
+
 
   // ngOnInit() 
   // {

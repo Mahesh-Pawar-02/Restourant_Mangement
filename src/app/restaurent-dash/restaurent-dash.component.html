@@ -1,10 +1,14 @@
 <head>
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap" rel="stylesheet">
+
+
 </head>
+
 
 
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
@@ -12,14 +16,14 @@
   <div class="top-bar">
 
     <ul class="left con">
-      <li><a href="https://www.facebook.com/profile.php?id=100054716893775&mibextid=ZbWKwL" class="fa-brands fa-facebook"></a></li>
-      <li><a href="https://www.instagram.com/official_mahesh_02/" class="fa-brands fa-instagram"></a></li>
+      <li><a href="https://www.facebook.com/profile.php?id=100054716893775&mibextid=ZbWKwL" class="fa-brands fa-facebook" target="_blank"></a></li>
+      <li><a href="https://www.instagram.com/official_mahesh_02/" class="fa-brands fa-instagram" target="_blank"></a></li>
       <li><a
           href="https://api.whatsapp.com/send?phone=+919322150275&amp;text=Hello!%20I%20will%20like%20to%20connect%20to%20Marvellous%20Infosystems."
-          class="fa-brands fa-whatsapp"></a></li>
-      <li><a href="https://www.youtube.com/@official_mahesh_02" class="fa-brands fa-youtube"></a></li>
-      <li><a href="https://github.com/Mahesh-Pawar-02" class="fa-brands fa-github"></a></li>
-      <li><a href="www.linkedin.com/in/mahesh-dinkar-pawar" class="fa-brands fa-linkedin"></a></li>
+          class="fa-brands fa-whatsapp" target="_blank"></a></li>
+      <li><a href="https://www.youtube.com/@official_mahesh_02" class="fa-brands fa-youtube" target="_blank"></a></li>
+      <li><a href="https://github.com/Mahesh-Pawar-02" class="fa-brands fa-github" target="_blank"></a></li>
+      <li><a href="https://www.linkedin.com/in/mahesh-pawar-90694624a/" class="fa-brands fa-linkedin" target="blank"></a></li>
     </ul>
 
     <ul class="right con">
@@ -39,7 +43,7 @@
     <div class="d-flex">
 
 
-      <button *ngIf="admin" class="btn" type="button" (click)="goToAdmin()" style="margin-right: 5px;">Admin</button>
+      <button *ngIf="admin" class="btn" type="button"  (click)="goToAdmin()" style="margin-right: 5px;" >Admin</button>
 
       <button (click)="clickAddResto()" class="btn" type="button" data-bs-toggle="modal"
         data-bs-target="#exampleModal">Add Restaurent</button>
@@ -51,8 +55,8 @@
         data-bs-target="#examplecon">Contact Us</button>
 
       <div class="help">
-        <button style="margin-left: 5px;" class="btn" type="button" data-bs-toggle="modal"
-          data-bs-target="#exampleModal23" (click)="Help">Help</button>
+        <button  style="margin-left: 5px;" class="btn" type="button" data-bs-toggle="modal"
+          data-bs-target="#exampleModal23" routerLink="/help">Help</button>
       </div>
     </div>
   </div>
@@ -87,6 +91,7 @@
 
   </tbody>
 </table>
+
 
 
 <!-- Modal -->
@@ -136,6 +141,44 @@
     </div>
   </div>
 </div>
+
+
+<!-- sliders -->
+<!-- <div class="slider">
+  <div class="slider">
+  <input type="radio" name="radio-btn" id="radio1">
+  <input type="radio" name="radio-btn" id="radio2">
+  <input type="radio" name="radio-btn" id="radio3">
+  <input type="radio" name="radio-btn" id="radio4">
+
+      <div class="slide first">
+          <img src="https://wallpapercave.com/wp/wp1874159.jpg" alt="img1">
+      </div>
+
+      <div class="slide secoond">
+          <img src="https://th.bing.com/th/id/OIP.A_cywoo3xme2cx_yjLEOoQHaE8?w=279&h=186&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="img2">
+      </div>
+
+      <div class="slide third">
+          <img src="https://wallpapercave.com/wp/wp1874159.jpg" alt="img3">
+      </div>
+
+      <div class="slide fourth">
+          <img src="https://wallpapercave.com/wp/wp1874159.jpg" alt="img4">
+      </div>
+
+      <div class="navigation-auto">
+          <div class="auto-btn1"></div>
+          <div class="auto-btn2"></div>
+          <div class="auto-btn3"></div>
+          <div class="auto-btn4"></div>
+      </div>
+
+  </div>
+</div> -->
+
+
+
 
 <!-- contact form -->
 <div class="modal con fade" id="examplecon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,17 +1,31 @@
 .card{
     position: relative;
-    left: 180%;
+    left: 35%;
     top: 5%;
     margin-top: 5%;
-    border: 2px solid #c3c9d0;
+    border: 3px solid #4c4e4e;
     border-radius: 10px;
     padding: 55px;
     background-color: transparent;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.377);
+    box-shadow: 0px 0px 10px rgba(58, 65, 64, 0.377),0px 0px 10px rgba(58, 63, 64, 0.377);
+    
     color: #fff;
 
 }
+.eyeicon
+{
+    position: relative;
+    left: 370px;
+    bottom: 30px;
+    color: rgb(202, 195, 195);
+}
 
+.text-danger
+{
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(222, 27, 27) !important;
+    font-weight: 50px;
+}
 .reset
 {
     margin-left: 100px;

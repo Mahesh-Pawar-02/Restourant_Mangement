@@ -72,4 +72,8 @@ export class AdminComponent implements OnInit {
     })
   }
 
+  goBack() {
+    this._router.navigate(['/restaurent']);
+  }
+
 }

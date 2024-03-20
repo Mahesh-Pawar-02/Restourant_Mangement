@@ -13,6 +13,11 @@ import { HelpcComponent } from './helpc/helpc.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
+import { SliderSComponent } from './slider-s/slider-s.component';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +26,11 @@ import { ToastrModule, provideToastr } from 'ngx-toastr';
     LoginComponent,
     SignupComponent,
     HelpcComponent,
-    AdminComponent
+    AdminComponent,
+    HomeComponent,
+    FooterComponent,
+    SliderSComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -29,7 +38,9 @@ import { ToastrModule, provideToastr } from 'ngx-toastr';
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
+    
   ],
   providers: [provideToastr()],
   bootstrap: [AppComponent]

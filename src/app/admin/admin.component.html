@@ -1,4 +1,9 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
 <div class="container">
+    <button class="btn btn-primary"  type="button" data-bs-toggle="modal" (click)="goBack()"
+    data-bs-target="#exampleModal"><i class="fa-solid fa-arrow-left"></i></button>
     <div class="con">
         <h3>Users</h3>
         <div class="box" *ngFor="let data of users">

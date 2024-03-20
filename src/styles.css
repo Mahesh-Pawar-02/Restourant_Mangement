@@ -10,10 +10,8 @@
 .back {
   background:
     rgba(36, 35, 35, 0.3),
-    url('https://static.vecteezy.com/system/resources/previews/007/164/537/original/fingerprint-identity-sensor-data-protection-system-podium-hologram-blue-light-and-concept-free-vector.jpg');
-  background: rgb(2, 0, 36);
-  background: linear-gradient(90deg, rgba(2, 0, 36, 0.3) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 0.3) 100%),
-    url('https://static.vecteezy.com/system/resources/previews/007/164/537/original/fingerprint-identity-sensor-data-protection-system-podium-hologram-blue-light-and-concept-free-vector.jpg');
+    url('C:/Users/mahes/Downloads/bg-wi6V3skzu-transformed.jpeg');
+  background-image: url('C:/Users/mahes/Downloads/bg-wi6V3skzu-transformed.jpeg');
 
   background-size: cover;
   height: 100vh;

@@ -5,6 +5,8 @@ import { RestaurentDashComponent } from './restaurent-dash/restaurent-dash.compo
 import { SignupComponent } from './signup/signup.component';
 import { HelpcComponent } from './helpc/helpc.component';
 import { AdminComponent } from './admin/admin.component';
+import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
 
 const routes: Routes = [
   {
@@ -23,7 +25,10 @@ const routes: Routes = [
    path:'restaurent' , component: RestaurentDashComponent
  },
  {
-  path:'help' , component: HelpcComponent
+  path:'help' , component: FooterComponent
+},
+{
+  path: 'home', component: HomeComponent
 }
 ];
 

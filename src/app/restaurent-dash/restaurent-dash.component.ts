@@ -4,6 +4,7 @@ import { ApiService } from '../shared/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import {RestaurentData} from './restaurent.model';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-restaurent-dash',
@@ -21,7 +22,7 @@ export class RestaurentDashComponent implements OnInit {
   admin!:boolean;
   useremail!:any;
   constructor(private formbuilder: FormBuilder, private api:ApiService, 
-    private toastr: ToastrService, private _router: Router) { }
+    private toastr: ToastrService, private _router: Router, ) { }
   ngOnInit(): void {
     this.formValue = this.formbuilder.group({
       name: [''],
