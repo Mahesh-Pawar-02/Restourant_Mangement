@@ -66,9 +66,6 @@ button:hover{
         flex-direction: column;
         height: fit-content;
     }
-    .con{
-        
-    }
     nav{
         height: fit-content !important;
     }
