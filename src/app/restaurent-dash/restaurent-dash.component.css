@@ -70,3 +70,7 @@ button:hover{
         height: fit-content !important;
     }
 } 
+
+.hidden{
+    display: none;
+}

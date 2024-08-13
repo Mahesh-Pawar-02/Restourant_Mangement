@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder  } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ApiService } from '../shared/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import {RestaurentData} from './restaurent.model';
+import { RestaurentData } from './restaurent.model';
 import { FooterComponent } from '../footer/footer.component';
+import { fakeAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-restaurent-dash',
@@ -13,16 +14,17 @@ import { FooterComponent } from '../footer/footer.component';
 })
 
 export class RestaurentDashComponent implements OnInit {
-  formValue!:FormGroup
-  contactForm!:FormGroup
-  restaurentModelObj : RestaurentData = new RestaurentData;
+  formValue!: FormGroup
+  contactForm!: FormGroup
+  restaurentModelObj: RestaurentData = new RestaurentData;
   allRestaurentData: any;
-  showAdd!:boolean;
-  showBtn!:boolean;
-  admin!:boolean;
-  useremail!:any;
-  constructor(private formbuilder: FormBuilder, private api:ApiService, 
-    private toastr: ToastrService, private _router: Router, ) { }
+  showAdd!: boolean;
+  showBtn!: boolean;
+  admin!: boolean;
+  useremail!: any;
+  showMessageForm: boolean = false;
+  constructor(private formbuilder: FormBuilder, private api: ApiService,
+    private toastr: ToastrService, private _router: Router,) { }
   ngOnInit(): void {
     this.formValue = this.formbuilder.group({
       name: [''],
@@ -42,34 +44,34 @@ export class RestaurentDashComponent implements OnInit {
     this.useremail = this.api.useremail
   }
 
-  Help(){}
+  Help() { }
 
-  clickAddResto(){this.showAdd = true;}
- 
-  addRestaurent(){
-    if(this.allRestaurentData.length == 0) {
+  clickAddResto() { this.showAdd = true; }
+
+  addRestaurent() {
+    if (this.allRestaurentData.length == 0) {
       this.restaurentModelObj.id = 1
-    }else {
-    this.restaurentModelObj.id = Number(this.allRestaurentData[this.allRestaurentData.length - 1].id )+ Number(1)
+    } else {
+      this.restaurentModelObj.id = Number(this.allRestaurentData[this.allRestaurentData.length - 1].id) + Number(1)
     }
     this.restaurentModelObj.name = this.formValue.value.name;
     this.restaurentModelObj.email = this.formValue.value.email;
     this.restaurentModelObj.mobile = this.formValue.value.mobile;
     this.restaurentModelObj.address = this.formValue.value.address;
     this.restaurentModelObj.services = this.formValue.value.services;
-    
+
     this.api.addRestaurent(this.restaurentModelObj).subscribe((res: any) => {
-      this.toastr.success('Restorant added Successfully', "",{
+      this.toastr.success('Restorant added Successfully', "", {
         closeButton: true
       });
       this.formValue.reset();
-      let ref= document.getElementById('close');
+      let ref = document.getElementById('close');
       ref?.click();
       this.getAllData()
     })
   }
 
-  contact() { 
+  contact() {
     console.log('hi')
     const data = {
       username: this.contactForm.value.name,
@@ -78,23 +80,27 @@ export class RestaurentDashComponent implements OnInit {
     }
 
     this.api.contactAPI(data).subscribe((res: any) => {
-      this.toastr.warning(res.msg,"",{
-        closeButton:true
+      this.toastr.warning(res.msg, "", {
+        closeButton: true;
+       this.showMessageForm = false;
       });
-      
+
       if (res.msg == "Messege Send Successfully") {
         this.contactForm.reset();
+        this.showMessageForm = false;
         let ref = document.getElementById('close');
         ref?.click();
       }
     })
-   }
-  getAllData(){
+
+  }
+
+  getAllData() {
     this.api.getRestaurent().subscribe((res: any) => {
-        this.allRestaurentData = res.hotels
+      this.allRestaurentData = res.hotels
     })
   }
-  deleteResto(id: number){
+  deleteResto(id: number) {
     const data = {
       id: id
     }
@@ -103,21 +109,20 @@ export class RestaurentDashComponent implements OnInit {
       this.getAllData();
     })
   }
-  onEditResto(data: any)
-  {
+  onEditResto(data: any) {
     this.showAdd = false;
     this.showBtn = true;
-    
+
     this.restaurentModelObj.id = data.id;
     this.formValue.controls['name'].setValue(data.name);
     this.formValue.controls['email'].setValue(data.email);
     this.formValue.controls['mobile'].setValue(data.mobile);
     this.formValue.controls['address'].setValue(data.address);
     this.formValue.controls['services'].setValue(data.services);
-    
- 
+
+
   }
-  updateResto(){
+  updateResto() {
     this.restaurentModelObj.name = this.formValue.value.name;
     this.restaurentModelObj.email = this.formValue.value.email;
     this.restaurentModelObj.mobile = this.formValue.value.mobile;
@@ -128,7 +133,7 @@ export class RestaurentDashComponent implements OnInit {
 
       this.toastr.success(res.msg)
       this.formValue.reset();
-      let ref= document.getElementById('close');
+      let ref = document.getElementById('close');
       ref?.click();
       this.getAllData();
     })

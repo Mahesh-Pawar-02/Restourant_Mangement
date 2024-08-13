@@ -183,7 +183,7 @@
 
 
 <!-- contact form -->
-<div class="modal con fade" id="examplecon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div [ngClass]="{'modal con fade': showMessageForm, 'modal con fade hidden': showMessageForm==false}"  id="examplecon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
