@@ -81,8 +81,7 @@ export class RestaurentDashComponent implements OnInit {
 
     this.api.contactAPI(data).subscribe((res: any) => {
       this.toastr.warning(res.msg, "", {
-        closeButton: true;
-       this.showMessageForm = false;
+        closeButton: true
       });
 
       if (res.msg == "Messege Send Successfully") {
